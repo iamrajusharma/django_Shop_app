@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+ 
+
+</body>
+</html>{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sawariya Beauty and Fashion</title>
+   <link rel="stylesheet" href="/static/style.css">
+
+</head>
+<body>
+    <!-- Navbar Section -->
+    <nav class="navbar">
+        
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+            <li><a href="{% url 'login' %}">login</a></li>
+           
+        </ul>
+    </nav>
+
+    <!-- Front Section -->
+    <header class="shop-header" id="home">
+        <h1>Welcome to Sawariya Beauty and Fashion</h1>
+           <h1>admin page</h1>
+        <a href="#shop" class="shop-now-btn">Shop Now</a>
+    </header>
+     <h2>{{products}}</h2>
+    <section class="product-list" id="shop">
+        {% for product in products %}
+        <div class="product-card">
+
+            <img src="{{ product.image.url }}" alt="{{product.product_name}}">
+            <h3>{{ product.product_name }}</h3>
+            <p>₹{{ product.price }}</p>
+            <h3>{{ product.description }}</h3>
+            <h3>{{ product.catagrys }}</h3>
+            
+            <a href="{% url 'login' %}" class="shop-btn">Buy Now</a>
+            <a href="{% url 'login' %}" class="shop-btn">Add to Cart</a>
+        </div>
+        {% endfor %}
+    </section>
+
+  
+
+    <!-- Map Section -->
+   <!-- Map Section -->
+<section class="map-section">
+    <div class="map-container">
+        <h2>Visit Our Store in RUNIJA</h2>
+        <div class="map-details">
+            <div class="store-info">
+                <h3>Sawariya Beauty and Fashion</h3>
+                <p><i class="location-icon">📍</i> Runija,Suwasra,MP</p>
+                <!-- Add your contact number here -->
+                <p><i class="phone-icon">📞</i> Contact Number</p>
+                <p><i class="time-icon">🕒</i> Open: 10 AM - 9 PM</p>
+                <div class="directions-btn">
+                    <a href="https://maps.app.goo.gl/97UXdhe9H64c5kS39" target="_blank" rel="noopener noreferrer">
+                        Get Directions
+                    </a>
+                </div>
+            </div>
+            <div class="map-frame">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3462.2619672625556!2d75.7533629!3d24.084282499999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3964f9b4b0051271%3A0xf1732757ef133e0b!2sBeauty%20and%20fashion!5e1!3m2!1sen!2sin!4v1729755212059!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </div>
+</section>
+
+     <form method="post" action="{% url 'adminapp:admin' %}">
+        {% csrf_token %}
+        <label for="image">Upload Image:</label>
+        <input type="file" name="image" id="image" accept="image/*" required>
+        <label for="product_name">product_name</label>
+        <input type="text" name="product_name" id="product_name"  required>
+        <label for="description">description</label>
+        <input type="text" name="description" id="description"required>
+        <label for="price">price</label>
+        <input type="text" name="price" id="price"required>
+        <button type="submit">Submit</button>
+    </form>
+    <a href="{% url 'adminapp:show_prduct' %}">show</a>
+
+</body>
+</html>

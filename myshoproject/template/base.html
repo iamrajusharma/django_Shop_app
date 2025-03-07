@@ -1,0 +1,197 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sawariya Beauty and Fashion</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <style>
+        .category-btn {
+            background-color: #4CAF50;
+            color: #000;
+            padding: 10px 16px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .dropdown-content {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #000;
+            min-width: 160px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+        .dropdown-content a {
+            color: black;
+            padding: 10px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* General styles for the product card */
+.product-card {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  text-align: center;
+  background-color: #fff;
+  margin: 10px;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.product-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Styling the image */
+.product-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+/* Styling the product name and price */
+.product-card h3 {
+  font-size: 18px;
+  color: #333;
+  margin: 10px 0;
+}
+
+.product-card p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+/* Add to Cart button styles */
+.add-to-cart-btn {
+  background-color: #ff6600;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #ff4500;
+  transform: translateY(-2px);
+}
+
+.add-to-cart-btn:active {
+  background-color: #cc3700;
+  transform: translateY(1px);
+}
+
+/* Quantity buttons (-/+) styling */
+.product-card input[type="submit"] {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.product-card input[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+.product-card input[type="submit"]:active {
+  background-color: #003f7f;
+}
+
+    </style>
+</head>
+<body>
+    <!-- Navbar Section -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+            <li><a href="{% url 'order_view' %}">Order</a></li>
+            <li>
+                <a href="{% url 'cart' %}">Cart ({{ request.session.cart|length }})</a>  <!-- Show cart item count -->
+            </li>
+            
+            {% if request.session.user_name %}
+            <!-- Display Logout link if the user is logged in -->
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+        {% else %}
+            <!-- Display Login link if the user is not logged in -->
+            <li><a href="{% url 'login' %}">Login</a></li>
+        {% endif %}
+            
+            <li style="position: relative;">
+                <button class="category-btn" onclick="toggleDropdown()">Category</button>
+                <div id="categoryDropdown" class="dropdown-content" style="display: none;">
+                    {% for category in catagrys %}
+                        <a href="/?category={{category.id}}">{{ category.name }}</a>
+                    {% endfor %}
+                </div>
+            </li>
+        </ul>
+    </nav>
+    
+
+    <!-- Front Section -->
+   
+
+    {% block content %}
+    {% endblock %}
+
+    <!-- Map Section -->
+    <section class="map-section">
+        <div class="map-container">
+            <h2>Visit Our Store in RUNIJA</h2>
+            <div class="map-details">
+                <div class="store-info">
+                    <h3>Sawariya Beauty and Fashion</h3>
+                    <p><i class="location-icon">📍</i> Runija, Suwasra, MP</p>
+                    <p><i class="phone-icon">📞</i> Contact Number</p>
+                    <p><i class="time-icon">🕒</i> Open: 10 AM - 9 PM</p>
+                    <div class="directions-btn">
+                        <a href="https://maps.app.goo.gl/97UXdhe9H64c5kS39" target="_blank" rel="noopener noreferrer">Get Directions</a>
+                    </div>
+                </div>
+                <div class="map-frame">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3462.2619672625556!2d75.7533629!3d24.084282499999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3964f9b4b0051271%3A0xf1732757ef133e0b!2sBeauty%20and%20fashion!5e1!3m2!1sen!2sin!4v1729755212059!5m2!1sen!2sin" 
+                            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade" aria-label="Store Location"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function toggleDropdown() {
+            const dropdown = document.getElementById('categoryDropdown');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';  
+        }
+
+        window.onclick = function(event) {
+            const dropdown = document.getElementById('categoryDropdown');
+            if (!event.target.matches('.category-btn')) {
+                dropdown.style.display = 'none';
+            }
+        };
+    </script>
+</body>
+</html>

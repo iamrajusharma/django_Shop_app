@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+      <!-- Form Section -->
+ 
+ {% block content %}
+ <section class="shop-form" id="shop-form">
+    <h2>Place Your Order</h2>
+    <form action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+        
+        
+        
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>  
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required>        
+        <button type="submit">login</button>
+        <a href="{% url 'singup' %}">Create account</a>
+        {% if error %}
+        <p style="color: red; font-weight: bold;">{{ error}}</p>
+          
+        {% endif %}
+        
+   
+    </form>
+    
+     
+</section>
+ {% endblock content %}
+    

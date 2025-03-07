@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+<!-- Front Section -->
+<header class="shop-header" id="home">
+    <h1>Welcome to Sawariya Beauty and Fashion</h1>
+    <a href="#shop" class="shop-now-btn">Shop Now</a>
+    <h1>Welcome toto{{ request.session.user_name }}</h1>
+</header>
+
+<!-- Products Section -->
+
+<section class="product-list" id="shop">
+    {% for product in products %}
+    <div class="product-card">
+
+        <img src="{{ product.image.url }}" alt="{{product.product_name}}">
+        <h3>{{ product.product_name }}</h3>
+        <p>₹{{ product.price }}</p>
+        <h3>{{ product.description }}</h3>
+        <h3>{{ product.catagrys }}</h3>
+        
+        <a href="{% url 'login' %}" class="shop-btn">Buy Now</a>
+        <a href="{% url 'login' %}" class="shop-btn">Add to Cart</a>
+    </div>
+    {% endfor %}
+</section>
+
+{% endblock %}
